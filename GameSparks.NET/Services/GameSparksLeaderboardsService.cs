@@ -121,6 +121,17 @@ namespace GameSparks.NET.Services
         }
 
         /// <summary>
+        /// Begin a new asynchronous LeaderboardDataRequest where all data items are deserialized to type T
+        /// </summary>
+        /// <param name="requestData"></param>
+        /// <returns></returns>
+        public async Task<GameSparksLeaderboardCustomDataResponse<T>> LeaderboardDataRequestAsync<T>(LeaderboardDataRequest requestData)
+        {
+            var res = await Requestor.PostStringAsync(Urls.LeaderboardDataRequest, JsonHelper.SerializeData(requestData));
+            return JsonConvert.DeserializeObject<GameSparksLeaderboardCustomDataResponse<T>>(res.ResponseJson);
+        }
+
+        /// <summary>
         /// Begin a new asynchronous LeaderboardsEntriesRequest
         /// </summary>
         /// <param name="requestData"></param>
